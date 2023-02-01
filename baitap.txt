@@ -1,0 +1,26 @@
+- Sử dụng express, mongoose
+/-------------/
+- Tạo userSchema có các trường: name-String, age-Number, address-String, gender-String, album-Array các bài hát
+
+Object mẫu: user = {
+    name: "Tâm",
+    age: 20,
+    address: "HN",
+    gender: "male",
+    album: [
+        { id: randomID ,name: "Song1", author: "Author 1", kind: "Lofi"},
+        { id: randomID, name: "Song2", author: "Author 2", kind: "Romance"}
+    ]
+}
+
+// Cách khai báo schema dạng array của object, xem lại file mongo.js
+
+- Tạo router userRouter trong user.js có các route:
+    + GET / -> Lấy tất cả user trong database return về postman (| userModel.find({}) |)
+    + POST / -> Tạo user mới có các trường: name, age, address, gender (| userModel.create() -> .save() |)
+    + PATCH /:userId -> Update user có _id trong database = userId (| userModel.find() -> update -> .save() |)
+    + DELETE /:userId -> Xoá user có _id trong database = userId (| userModel.deleteOne() |)
+    + PATCH /:userId/album -> Update album của user có _id trong database = userId (thêm bài hát vào mảng album) (| userModel.find() -> update -> .save() |)
+    + DELETE /:userId/album/:songId -> Xoá song có id = songId trong album của user có _id = userId
+
+- Sử dụng userRouter bằng middleware | app.use('/users', userRouter)
